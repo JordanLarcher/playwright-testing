@@ -47,7 +47,20 @@ test.describe('E2E Shopping Flow', () => {
     });
 
 
-    test('Client can place an order', async ({page}) => {
-
+    test('Client can place an order', async () => {
+        const productName = 'ADIDAS ORIGINAL';
+        // Add product to cart 
+        await homePage.addProductByName(productName);
+        await homePage.openCart();
+        // Verify product is in the cart
+        await expect(await cartPage.verifyProductInCart(productName)).toBeTruthy();
+        // Move to checkout page
+        await cartPage.proceedToCheckout();
+        // Fill in checkout details and place order
+        await cartPage.fillCheckoutDetails('United States', '12345', '123 Main St', 'New York', 'NY', 'Credit Card');
+        await cartPage.placeOrder();
+        // Verify order confirmation
+        const confirmationMessage = await cartPage.getOrderConfirmationMessage();
+        expect(confirmationMessage).toContain('Thank you for your order');
     });
 });
