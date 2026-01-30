@@ -46,4 +46,4 @@ class ClientOrderPage {
 
 }
 
-module.exports = ClientHomePage;
+module.exports = ClientOrderPage;

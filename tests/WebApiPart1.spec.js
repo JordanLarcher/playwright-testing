@@ -1,26 +1,20 @@
 const { describe, test, expect, beforeEach, afterEach } = require('@playwright/test');
+const { request } = require('@playwright/test');
 const LoginPageClient = require('../pages/LoginPageClient');
 const ClientHomePage = require('../pages/ClientHomePage');
 const ClientCartPage = require('../pages/ClientCartPage');
 const ClientOrderPage = require('../pages/ClientOrderPage');
 const ClientCheckOutPage = require('../pages/ClientCheckOutPage');
+let token;
+let loginPage, homePage, cartPage, ordersPage, checkoutPage;
 
-describe('E2E Shopping Flow', () => {
+beforeAll( async() => {
+    
+});
 
-    let loginPage, homePage, cartPage, ordersPage, checkoutPage;
-    beforeEach(async ({ page }) => {
-        // These are fresh instances for each test
-        loginPage = new LoginPageClient(page);
-        homePage = new ClientHomePage(page);
-        cartPage = new ClientCartPage(page);
-        ordersPage = new ClientOrderPage(page);
-        checkoutPage = new ClientCheckOutPage(page);
 
-        // Common setup: Login before each test
-        await loginPage.navigate();
-        await loginPage.login('erik.render@gmail.com', 'Alidarosa23');
-        await page.locator('.card-body b').first().waitFor();
-    });
+
+test.describe('Api testing', () => {
 
     test('Client can login successfully', async ({ page }) => {
         await page.locator('.card-body b').first().waitFor();
@@ -72,4 +66,5 @@ describe('E2E Shopping Flow', () => {
         await homePage.goToOrders();
 
     });
+
 });

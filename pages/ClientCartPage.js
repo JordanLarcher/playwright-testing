@@ -31,6 +31,10 @@ class ClientCartPage {
     async checkout() {
         await this.checkoutButton.click();
     }
+
+    async continueShopping(){
+        await this.continueShoppingButton.click();
+    }
 }
 
 

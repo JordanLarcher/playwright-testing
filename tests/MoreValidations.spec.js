@@ -1,0 +1,9 @@
+const { test } = require('@playwright/test');
+
+
+test('Popup validations', async( {page} ) => {
+    await page.goto('https://rahulshettyacademy.com/AutomationPractice/');
+    await page.goto('https://www.google.com');
+    await page.goBack();
+    await page.goForward();
+});
