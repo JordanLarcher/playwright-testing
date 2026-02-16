@@ -45,7 +45,6 @@ class ClientHomePage {
     }
 
 
-
 }
 
 module.exports = ClientHomePage;

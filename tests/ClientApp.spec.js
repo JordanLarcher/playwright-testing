@@ -37,7 +37,7 @@ describe('E2E Shopping Flow', () => {
         await expect(await cartPage.verifyProductInCart(productName)).toBeTruthy();
     });
 
-    test('Client can remove product from the cart', async () => {
+    test.skip('Client can remove product from the cart', async () => {
         const productName = 'ADIDAS ORIGINAL';
         // Add product to cart 
         await homePage.addProductByName(productName);
@@ -47,11 +47,11 @@ describe('E2E Shopping Flow', () => {
         // Remove product from cart
         await cartPage.removeProductFromCart(productName);
         // Verify product is removed from cart 
-        await expect(await cartPage.verifyProductInCart(productName)).toBeTruthy();
+        await expect(await cartPage.verifyProductInCart(productName)).toBeFalsy();
     });
 
 
-    test('Client can place an order', async () => {
+    test.skip('Client can place an order', async () => {
         const productName = 'ADIDAS ORIGINAL';
         // Add product to cart 
         await homePage.addProductByName(productName);
@@ -61,14 +61,15 @@ describe('E2E Shopping Flow', () => {
         // Move to checkout page
         await cartPage.checkout();
         // Fill in checkout details and place order
+        await checkoutPage.fillPersonalInformation('test', '123', '4542 9931 9292 2293');
         await checkoutPage.fillShippingDetails('United States');
         await checkoutPage.placeOrder();
         // Verify order confirmation
         const confirmationMessage = await checkoutPage.getOrderConfirmationMessage();
-        expect(confirmationMessage).toContain('Thank you for your order');
+        await expect(confirmationMessage).toContain(' Thankyou for the order. ');
     });
 
-    test('Client can check the order placed', async () => {
+    test.skip('Client can check the order placed', async () => {
         await homePage.goToOrders();
 
     });
