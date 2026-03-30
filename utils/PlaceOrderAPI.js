@@ -8,28 +8,25 @@ class PlaceOrderAPI {
 
 
     async createOrder(){
-        let response = {};
-
-        response.token = this.token;
-
         const orderResponse = await this.apiContext.post(
             "https://rahulshettyacademy.com/api/ecom/order/create-order",
             {
                 data: this.orderPayload,
                 headers:{
-                    'Authorization': response.token,
+                    'Authorization': this.token,
                     'Content-Type': 'application/json'
                 }
             }
         );
 
-
         const orderResponseJson = await orderResponse.json();
         console.log(orderResponseJson);
         const orderId = orderResponseJson.orders[0];
-        response.orderId = orderId;
-
-        return response;
+        
+        return {
+            token: this.token,
+            orderId: orderId
+        };
     }
 
 

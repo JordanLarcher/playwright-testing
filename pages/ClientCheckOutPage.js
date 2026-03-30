@@ -5,7 +5,7 @@ class ClientCheckOutPage {
         this.cvvCode = page.locator('//div[contains(text(), "CVV Code")]/following::input[1]');
         this.creditCardInput = page.locator('//div[contains(text(), "Credit Card")]/following::input[1]');
         this.cardName = page.locator('//div[contains(text(), "Name on Card")]/following::input[1]');
-        this.expirationDate = page.locator();
+        //this.expirationDate = page.locator();
         this.placeOrderButton = page.locator('a:has-text("PLACE ORDER")');
         this.orderConfirmationMessage = page.getByRole('heading', { name: 'Thankyou for the order.'})
         this.applyCouponButton = page.getByRole('button', { name: 'Apply Coupon' });
@@ -14,6 +14,7 @@ class ClientCheckOutPage {
         // this.shippingInformationCountrySelectionBox = page.locator('//input[@placeholder="Select Country"]');
         // this.shippingInformationCountrySelectionBox = page.getByPlaceholder('Select Country', { exact: true });
         this.dropdownCountryOptions = page.locator('.ta-results');
+        this.emptyOrdersMessage = page.locator('h1', { hasText: 'No Products in Your Cart !' });
     }
 
     async fillPersonalInformation(cardName, cvvCode, creditCardInput) {

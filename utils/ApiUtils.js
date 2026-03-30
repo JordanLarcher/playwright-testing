@@ -34,7 +34,7 @@ class ApiUtils {
     }
 }
  
-module.exports = { APiUtils };
+module.exports = { ApiUtils };
  
  
  

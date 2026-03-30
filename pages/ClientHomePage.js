@@ -28,7 +28,7 @@ class ClientHomePage {
     }
 
     async openCart() {
-        await this.cartIcon.click();
+        return await this.cartIcon.click();
     }
 
     async goToOrders(){

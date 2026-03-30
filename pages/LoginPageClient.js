@@ -8,7 +8,7 @@ class LoginPage {
     }
 
     async navigate() {
-        await this.page.goto('https://rahulshettyacademy.com/client/#/auth/login');
+        await this.page.goto('/client/#/auth/login');
     }
 
     async login(userEmail, password) {

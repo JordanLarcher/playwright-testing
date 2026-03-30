@@ -8,6 +8,7 @@ const ClientCheckOutPage = require('../pages/ClientCheckOutPage');
 describe('E2E Shopping Flow', () => {
 
     let loginPage, homePage, cartPage, ordersPage, checkoutPage;
+    
     beforeEach(async ({ page }) => {
         // These are fresh instances for each test
         loginPage = new LoginPageClient(page);
@@ -17,18 +18,23 @@ describe('E2E Shopping Flow', () => {
         checkoutPage = new ClientCheckOutPage(page);
 
         // Common setup: Login before each test
-        await loginPage.navigate();
-        await loginPage.login('erik.render@gmail.com', 'Alidarosa23');
+        await page.goto('https://rahulshettyacademy.com/client/#/dashboard/dash');
         await page.locator('.card-body b').first().waitFor();
     });
 
     test('Client can login successfully', async ({ page }) => {
-        await page.locator('.card-body b').first().waitFor();
+        //await page.locator('.card-body b').first().waitFor();
         await expect(page).toHaveURL(/.*dashboard\/dash/);
     });
 
+    test.only('Client can check if the cart is empty', async ({ page }) => {
+        const cart = await homePage.openCart();
+        const message = await cart.getEmptyOrdersMessage();
+        expect(message).toBe('No Products in Your Cart !')
+    });
 
-    test('Client can add product to the cart', async () => {
+
+    test('Client can add product to the cart', async ({ page }) => {
         const productName = 'ADIDAS ORIGINAL';
         // Add product to cart 
         await homePage.addProductByName(productName);
@@ -37,7 +43,7 @@ describe('E2E Shopping Flow', () => {
         await expect(await cartPage.verifyProductInCart(productName)).toBeTruthy();
     });
 
-    test.skip('Client can remove product from the cart', async () => {
+    test('Client can remove product from the cart', async ({ page }) => {
         const productName = 'ADIDAS ORIGINAL';
         // Add product to cart 
         await homePage.addProductByName(productName);
@@ -51,7 +57,7 @@ describe('E2E Shopping Flow', () => {
     });
 
 
-    test.skip('Client can place an order', async () => {
+    test('Client can place an order', async ({ page }) => {
         const productName = 'ADIDAS ORIGINAL';
         // Add product to cart 
         await homePage.addProductByName(productName);
@@ -69,8 +75,13 @@ describe('E2E Shopping Flow', () => {
         await expect(confirmationMessage).toContain(' Thankyou for the order. ');
     });
 
-    test.skip('Client can check the order placed', async () => {
+    test('Client can check the order placed', async ({ page }) => {
         await homePage.goToOrders();
+        await expect(page).toHaveURL(/.*orders/);
+
+        // assert that at least one order row is visible
+        const orderRows = page.locator('tbody tr');
+        await expect(orderRows.first()).toBeVisible();
 
     });
 });

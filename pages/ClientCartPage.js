@@ -9,6 +9,7 @@ class ClientCartPage {
         this.cartIcon = page.locator('button[routerlink="/dashboard/cart"]');
         this.ordersLink = page.getByRole('button', { name: 'ORDERS' });
         this.signOutButton = page.getByRole('button', { name: 'Sign Out' });
+        this.emptyOrdersMessage = page.getByText('No Products in Your Cart !');
     }
 
 
@@ -16,7 +17,7 @@ class ClientCartPage {
         const productLocator = this.cartItems.filter({ hasText: productName});
         try{
             await productLocator.waitFor({ state: 'visible', timeout: 2000});
-            return false;
+            return true;
         } catch(e) {
             return false;
         }
@@ -26,7 +27,7 @@ class ClientCartPage {
         const productToBeRemoved = this.cartItems.filter( { hasText: productName } );
 
         // In that same locator row we look for the delete button 
-        const deleteBtn = this.productToBeRemoved.locator('button.btn-danger');
+        const deleteBtn = productToBeRemoved.locator('button.btn-danger');
 
         await deleteBtn.click();
 
@@ -39,6 +40,10 @@ class ClientCartPage {
 
     async continueShopping(){
         await this.continueShoppingButton.click();
+    }
+
+    async getEmptyOrdersMessage() {
+        return await this.emptyOrdersMessage.textContent();
     }
 }
 

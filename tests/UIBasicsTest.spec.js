@@ -36,7 +36,7 @@ test('Validating Successful Login and taking first element', async ({ page }) =>
     const loginPage = new LoginPage(page);
 
     await loginPage.navigate();
-    await loginPage.login('rahulshettyacademy', 'learning');
+    await loginPage.login('rahulshettyacademy', 'Learning@830$3mK2');
 
     await page.locator('.card-title').first().waitFor();
     const firstElementText = await page.getByText('iphone X').textContent();

@@ -6,6 +6,9 @@ class AuthUtils {
     }
 
     async loginWithToken(token) {
+        // Navigate to the application first
+        await this.page.goto('https://rahulshettyacademy.com/client');
+        
         // Set token directly to localStorage
         await this.page.evaluate((authToken) => {
             localStorage.setItem('token', authToken);
