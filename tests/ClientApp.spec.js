@@ -27,9 +27,9 @@ describe('E2E Shopping Flow', () => {
         await expect(page).toHaveURL(/.*dashboard\/dash/);
     });
 
-    test.only('Client can check if the cart is empty', async ({ page }) => {
-        const cart = await homePage.openCart();
-        const message = await cart.getEmptyOrdersMessage();
+    test('Client can check if the cart is empty', async ({ page }) => {
+        await homePage.openCart();
+        const message = await cartPage.getEmptyOrdersMessage();
         expect(message).toBe('No Products in Your Cart !')
     });
 

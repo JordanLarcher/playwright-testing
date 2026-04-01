@@ -45,6 +45,7 @@ class ClientCartPage {
     async getEmptyOrdersMessage() {
         return await this.emptyOrdersMessage.textContent();
     }
+
 }
 
 module.exports = ClientCartPage;
